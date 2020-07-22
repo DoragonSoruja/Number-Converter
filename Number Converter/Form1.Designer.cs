@@ -31,8 +31,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.userInput = new System.Windows.Forms.TextBox();
             this.convertButton = new System.Windows.Forms.Button();
-            this.results = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.results = new System.Windows.Forms.RichTextBox();
+            this.numberToWord = new System.Windows.Forms.RadioButton();
+            this.wordToNumber = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -49,6 +51,7 @@
             // 
             this.userInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userInput.Location = new System.Drawing.Point(159, 55);
+            this.userInput.MaxLength = 7;
             this.userInput.Name = "userInput";
             this.userInput.Size = new System.Drawing.Size(190, 21);
             this.userInput.TabIndex = 1;
@@ -63,15 +66,6 @@
             this.convertButton.UseVisualStyleBackColor = true;
             this.convertButton.Click += new System.EventHandler(this.convertButton_Click);
             // 
-            // results
-            // 
-            this.results.AutoSize = true;
-            this.results.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.results.Location = new System.Drawing.Point(154, 156);
-            this.results.Name = "results";
-            this.results.Size = new System.Drawing.Size(0, 24);
-            this.results.TabIndex = 3;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -82,13 +76,49 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Your number is:";
             // 
+            // results
+            // 
+            this.results.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.results.Location = new System.Drawing.Point(154, 160);
+            this.results.Name = "results";
+            this.results.Size = new System.Drawing.Size(276, 62);
+            this.results.TabIndex = 5;
+            this.results.Text = "";
+            // 
+            // numberToWord
+            // 
+            this.numberToWord.AutoSize = true;
+            this.numberToWord.Checked = true;
+            this.numberToWord.Location = new System.Drawing.Point(159, 95);
+            this.numberToWord.Name = "numberToWord";
+            this.numberToWord.Size = new System.Drawing.Size(112, 17);
+            this.numberToWord.TabIndex = 6;
+            this.numberToWord.TabStop = true;
+            this.numberToWord.Text = "Number To Words";
+            this.numberToWord.UseVisualStyleBackColor = true;
+            this.numberToWord.CheckedChanged += new System.EventHandler(this.numberToWord_CheckedChanged);
+            // 
+            // wordToNumber
+            // 
+            this.wordToNumber.AutoSize = true;
+            this.wordToNumber.Location = new System.Drawing.Point(277, 95);
+            this.wordToNumber.Name = "wordToNumber";
+            this.wordToNumber.Size = new System.Drawing.Size(112, 17);
+            this.wordToNumber.TabIndex = 7;
+            this.wordToNumber.TabStop = true;
+            this.wordToNumber.Text = "Words To Number";
+            this.wordToNumber.UseVisualStyleBackColor = true;
+            this.wordToNumber.CheckedChanged += new System.EventHandler(this.wordToNumber_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 273);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(485, 271);
+            this.Controls.Add(this.wordToNumber);
+            this.Controls.Add(this.numberToWord);
             this.Controls.Add(this.results);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.convertButton);
             this.Controls.Add(this.userInput);
             this.Controls.Add(this.label1);
@@ -104,8 +134,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox userInput;
         private System.Windows.Forms.Button convertButton;
-        private System.Windows.Forms.Label results;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox results;
+        private System.Windows.Forms.RadioButton numberToWord;
+        private System.Windows.Forms.RadioButton wordToNumber;
     }
 }
 

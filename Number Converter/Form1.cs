@@ -19,55 +19,196 @@ namespace Number_Converter
 
         string wordNumber = "";
 
-        string[] oneToNineTeen = new string[] { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
-        string[] ten = new string[] { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
-        string[] tens = new string[] { "", "", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninty " };
-
-        private void convertButton_Click(object sender, EventArgs e)
+        private void convertButtonTwo_Click(object sender, EventArgs e)
         {
-            if (Int64.Parse(userInput.Text) < 20 && Int64.Parse(userInput.Text) > 9)
+            results.Text = WordsToNumber(userInput.Text.Trim()).ToString();
+        }
+
+        public static int WordsToNumber(string number)
+        {
+            int numberWord = 0;
+            int tempNum = 0;
+            number = number.Replace('-', ' ').ToLower();
+            string[] numberArr = number.Split(' ');
+            foreach(string word in numberArr)
             {
-                switch (Int64.Parse(userInput.Text))
+                switch(word.Trim())
                 {
-                    case 10:
-                        wordNumber = "Ten";
+                    case "one":
+                        tempNum += 1;
                         break;
-                    case 11:
-                        wordNumber = "Eleven";
+                    case "two":
+                        tempNum += 2;
                         break;
-                    case 12:
-                        wordNumber = "Twelve";
+                    case "three":
+                        tempNum += 3;
                         break;
-                    case 13:
-                        wordNumber = "Thirteen";
+                    case "four":
+                        tempNum += 4;
                         break;
-                    case 14:
-                        wordNumber = "Fourteen";
+                    case "five":
+                        tempNum += 5;
                         break;
-                    case 15:
-                        wordNumber = "Ten";
+                    case "six":
+                        tempNum += 6;
                         break;
-                    case 16:
-                        wordNumber = "Ten";
+                    case "seven":
+                        tempNum += 7;
                         break;
-                    case 17:
-                        wordNumber = "Ten";
+                    case "eight":
+                        tempNum += 8;
                         break;
-                    case 18:
-                        wordNumber = "Ten";
+                    case "nine":
+                        tempNum += 9;
                         break;
-                    case 19:
-                        wordNumber = "Ten";
+                    case "ten":
+                        tempNum += 10;
+                        break;
+                    case "eleven":
+                        tempNum += 11;
+                        break;
+                    case "twelve":
+                        tempNum += 12;
+                        break;
+                    case "thirteen":
+                        tempNum += 13;
+                        break;
+                    case "fourteen":
+                        tempNum += 14;
+                        break;
+                    case "fifteen":
+                        tempNum += 15;
+                        break;
+                    case "sixteen":
+                        tempNum += 16;
+                        break;
+                    case "seventeen":
+                        tempNum += 17;
+                        break;
+                    case "eighteen":
+                        tempNum += 18;
+                        break;
+                    case "nineteen":
+                        tempNum += 19;
+                        break;
+                    case "twenty":
+                        tempNum += 20;
+                        break;
+                    case "thirty":
+                        tempNum += 30;
+                        break;
+                    case "forty":
+                        tempNum += 40;
+                        break;
+                    case "fifty":
+                        tempNum += 50;
+                        break;
+                    case "sixty":
+                        tempNum += 60;
+                        break;
+                    case "seventy":
+                        tempNum += 70;
+                        break;
+                    case "eighty":
+                        tempNum += 80;
+                        break;
+                    case "ninety":
+                        tempNum += 90;
+                        break;
+                    case "hundred":
+                        tempNum *= 100;
+                        break;
+                    case "thousand":
+                        numberWord = tempNum * 1000;
+                        tempNum = 0;
+                        break;
+                    case "million":
+                        numberWord = tempNum * 1000000;
+                        tempNum = 0;
+                        break;
+                    default:
+                        tempNum = 0;
                         break;
                 }
             }
-            else
-            {
-                wordNumber = tens[Int64.Parse(userInput.Text) % 100 / 10] + oneToNineTeen[Int64.Parse(userInput.Text) % 10];
-            }
+            numberWord += tempNum;
+            return numberWord;
+        }
+
+        private void convertButton_Click(object sender, EventArgs e)
+        {
+            long userNumber = Int64.Parse(userInput.Text);
+            wordNumber = NumberToWords((int)userNumber);
             results.Text = wordNumber;
         }
 
-        
+        public static string NumberToWords(int number)
+        {
+            if (number == 0)
+                return "zero";
+
+            if (number < 0)
+                return "minus " + NumberToWords(Math.Abs(number));
+
+            string words = "";
+
+            if ((number / 1000000) > 0)
+            {
+                words += NumberToWords(number / 1000000) + " million ";
+                number %= 1000000;
+            }
+
+            if ((number / 1000) > 0)
+            {
+                words += NumberToWords(number / 1000) + " thousand ";
+                number %= 1000;
+            }
+
+            if ((number / 100) > 0)
+            {
+                words += NumberToWords(number / 100) + " hundred ";
+                number %= 100;
+            }
+
+            if (number > 0)
+            {
+                if (words != "")
+                    words += "and ";
+
+                var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+                var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+                if (number < 20)
+                    words += unitsMap[number];
+                else
+                {
+                    words += tensMap[number / 10];
+                    if ((number % 10) > 0)
+                        words += "-" + unitsMap[number % 10];
+                }
+            }
+
+            return words;
+        }
+
+        private void numberToWord_CheckedChanged(object sender, EventArgs e)
+        {
+            if (numberToWord.Checked == true)
+            {
+                userInput.MaxLength = 7;
+                this.convertButton.Click -= new EventHandler(this.convertButtonTwo_Click);
+                this.convertButton.Click += new EventHandler(this.convertButton_Click);
+            }
+        }
+
+        private void wordToNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            if (wordToNumber.Checked == true)
+            {
+                userInput.MaxLength = 100;
+                this.convertButton.Click -= new EventHandler(this.convertButton_Click);
+                this.convertButton.Click += new EventHandler(this.convertButtonTwo_Click);
+            }
+        }
     }
 }
