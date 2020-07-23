@@ -24,10 +24,10 @@ namespace Number_Converter
             results.Text = WordsToNumber(userInput.Text.Trim()).ToString();
         }
 
-        public static int WordsToNumber(string number)
+        public static long WordsToNumber(string number)
         {
-            int numberWord = 0;
-            int tempNum = 0;
+            long numberWord = 0;
+            long tempNum = 0;
             number = number.Replace('-', ' ').ToLower();
             string[] numberArr = number.Split(' ');
             foreach(string word in numberArr)
@@ -119,14 +119,19 @@ namespace Number_Converter
                         tempNum *= 100;
                         break;
                     case "thousand":
-                        numberWord = tempNum * 1000;
+                        numberWord += tempNum * 1000;
                         tempNum = 0;
                         break;
                     case "million":
-                        numberWord = tempNum * 1000000;
+                        numberWord += tempNum * 1000000;
                         tempNum = 0;
                         break;
-                    default:
+                    case "billion":
+                        numberWord += tempNum * 1000000000;
+                        tempNum = 0;
+                        break;
+                    case "trillion":
+                        numberWord += tempNum * 1000000000000;
                         tempNum = 0;
                         break;
                 }
@@ -138,11 +143,11 @@ namespace Number_Converter
         private void convertButton_Click(object sender, EventArgs e)
         {
             long userNumber = Int64.Parse(userInput.Text);
-            wordNumber = NumberToWords((int)userNumber);
+            wordNumber = NumberToWords(userNumber);
             results.Text = wordNumber;
         }
 
-        public static string NumberToWords(int number)
+        public static string NumberToWords(long number)
         {
             if (number == 0)
                 return "zero";
@@ -151,6 +156,18 @@ namespace Number_Converter
                 return "minus " + NumberToWords(Math.Abs(number));
 
             string words = "";
+
+            if ((number / 1000000000000) > 0)
+            {
+                words += NumberToWords(number / 1000000000000) + " trillion ";
+                number %= 1000000000000;
+            }
+
+            if ((number / 1000000000) > 0)
+            {
+                words += NumberToWords(number / 1000000000) + " billion ";
+                number %= 1000000000;
+            }
 
             if ((number / 1000000) > 0)
             {

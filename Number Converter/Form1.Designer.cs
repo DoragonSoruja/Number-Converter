@@ -51,7 +51,7 @@
             // 
             this.userInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userInput.Location = new System.Drawing.Point(159, 55);
-            this.userInput.MaxLength = 7;
+            this.userInput.MaxLength = 13;
             this.userInput.Name = "userInput";
             this.userInput.Size = new System.Drawing.Size(190, 21);
             this.userInput.TabIndex = 1;
