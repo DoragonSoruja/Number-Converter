@@ -19,6 +19,9 @@ namespace Number_Converter
 
         string wordNumber = "";
 
+        ///////////////////////////////////
+        //Numerals to Decimal
+        ///////////////////////////////////
         private void convertButtonTwo_Click(object sender, EventArgs e)
         {
             results.Text = WordsToNumber(userInput.Text.Trim()).ToString();
@@ -140,6 +143,9 @@ namespace Number_Converter
             return numberWord;
         }
 
+        ///////////////////////////////////
+        //Numerals to Decimal
+        ///////////////////////////////////
         private void convertButton_Click(object sender, EventArgs e)
         {
             long userNumber = Int64.Parse(userInput.Text);
@@ -208,24 +214,89 @@ namespace Number_Converter
             return words;
         }
 
-        private void numberToWord_CheckedChanged(object sender, EventArgs e)
+        ///////////////////////////////////
+        //Enter and Leave methods for text box tips
+        ///////////////////////////////////
+        private void numberToWords_Enter(object sender, EventArgs e)
         {
-            if (numberToWord.Checked == true)
+            if (userInput.Text == "Ex: 28, 549")
             {
-                userInput.MaxLength = 7;
-                this.convertButton.Click -= new EventHandler(this.convertButtonTwo_Click);
-                this.convertButton.Click += new EventHandler(this.convertButton_Click);
+                userInput.Text = "";
+                userInput.ForeColor = Color.Black;
             }
         }
 
-        private void wordToNumber_CheckedChanged(object sender, EventArgs e)
+        private void numberToWords_Leave(object sender, EventArgs e)
         {
-            if (wordToNumber.Checked == true)
+            if (userInput.Text == "")
             {
-                userInput.MaxLength = 100;
-                this.convertButton.Click -= new EventHandler(this.convertButton_Click);
-                this.convertButton.Click += new EventHandler(this.convertButtonTwo_Click);
+                userInput.Text = "Ex: 28, 549";
+                userInput.ForeColor = Color.Silver;
             }
+        }
+
+        private void wordsToNumber_Enter(object sender, EventArgs e)
+        {
+            if (userInput.Text == "Ex: Two Hundred Fifty Seven, Forty-Nine")
+            {
+                userInput.Text = "";
+                userInput.ForeColor = Color.Black;
+            }
+        }
+
+        private void wordsToNumber_Leave(object sender, EventArgs e)
+        {
+            if (userInput.Text == "")
+            {
+                userInput.Text = "Ex: Two Hundred Fifty Seven, Forty-Nine";
+                userInput.ForeColor = Color.Silver;
+            }
+        }
+
+        ///////////////////////////////////
+        //Menu Strip GUI changes
+        ///////////////////////////////////
+        private void numberToWordsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Tips
+            description.Text = "Whole Numbers";
+            userInput.Text = "Ex: 28, 549";
+
+            //Relocations and Resizes
+            results.Size = new Size(276, 62);
+            userInput.Size = new Size(190, 22);
+            convertButton.Location = new Point(355, 55);
+            results.Size = new Size(276, 62);
+            userInput.MaxLength = 10;
+
+            // Methods Changes
+            this.userInput.Enter -= new EventHandler(this.wordsToNumber_Enter);
+            this.userInput.Leave -= new EventHandler(this.wordsToNumber_Leave);
+            this.userInput.Enter += new EventHandler(this.numberToWords_Enter);
+            this.userInput.Leave += new EventHandler(this.numberToWords_Leave);
+            this.convertButton.Click -= new EventHandler(this.convertButtonTwo_Click);
+            this.convertButton.Click += new EventHandler(this.convertButton_Click);
+        }
+
+        private void wordsToNumberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Tips
+            description.Text = "English Numerals";
+            userInput.Text = "Ex: Two Hundred Fifty Seven, Forty-Nine";
+
+            //Relocations and Resizes
+            userInput.Size = new Size(271, 52);
+            convertButton.Location = new Point(355, 112);
+            results.Size = new Size(276, 22);
+            userInput.MaxLength = 100;
+
+            // Methods Changes
+            this.userInput.Enter -= new EventHandler(this.numberToWords_Enter);
+            this.userInput.Leave -= new EventHandler(this.numberToWords_Leave);
+            this.userInput.Enter += new EventHandler(this.wordsToNumber_Enter);
+            this.userInput.Leave += new EventHandler(this.wordsToNumber_Leave);
+            this.convertButton.Click -= new EventHandler(this.convertButton_Click);
+            this.convertButton.Click += new EventHandler(this.convertButtonTwo_Click);
         }
     }
 }
