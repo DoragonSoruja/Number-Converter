@@ -24,6 +24,11 @@ namespace Number_Converter
         ///////////////////////////////////
         private void convertButtonTwo_Click(object sender, EventArgs e)
         {
+            if (userInput.Text == "")
+            {
+                MessageBox.Show("Please enter in a valid number");
+                return;
+            }
             results.Text = WordsToNumber(userInput.Text.Trim()).ToString();
         }
 
@@ -144,10 +149,15 @@ namespace Number_Converter
         }
 
         ///////////////////////////////////
-        //Numerals to Decimal
+        //Decimal to Numerals
         ///////////////////////////////////
         private void convertButton_Click(object sender, EventArgs e)
         {
+            if(userInput.Text == "")
+            {
+                MessageBox.Show("Please enter in a valid number");
+                return;
+            }
             long userNumber = Int64.Parse(userInput.Text);
             wordNumber = NumberToWords(userNumber);
             results.Text = wordNumber;
@@ -258,6 +268,10 @@ namespace Number_Converter
         ///////////////////////////////////
         private void numberToWordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Clear Textboxes
+            results.Clear();
+            userInput.Clear();
+
             //Tips
             description.Text = "Whole Numbers";
             userInput.Text = "Ex: 28, 549";
