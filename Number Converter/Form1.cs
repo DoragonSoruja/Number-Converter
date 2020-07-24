@@ -302,7 +302,7 @@ namespace Number_Converter
             userInput.Size = new Size(271, 52);
             convertButton.Location = new Point(355, 112);
             results.Size = new Size(276, 22);
-            userInput.MaxLength = 100;
+            userInput.MaxLength = 200;
 
             // Methods Changes
             this.userInput.Enter -= new EventHandler(this.numberToWords_Enter);
